@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "expo-better-auth": {
+      "source": "TechWithEmmaYT/TechwithEmma-Skills",
+      "sourceType": "github",
+      "skillPath": "skills/expo-better-auth/SKILL.md",
+      "computedHash": "370e1a872b9cbdb3aa27fb87ed0a3af16d604fbd42688f297180d9a15d21eba8"
+    },
+    "expo-nativewind-theme": {
+      "source": "TechWithEmmaYT/TechwithEmma-Skills",
+      "sourceType": "github",
+      "skillPath": "skills/expo-nativewind-theme/SKILL.md",
+      "computedHash": "59373453e69a2c935315af41be776f2d2b583d67cdd93975575acefe182ff64d"
+    }
+  }
+}
