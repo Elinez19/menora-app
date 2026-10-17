@@ -17,6 +17,7 @@ import { Toaster } from "sonner-native";
 
 import { colors, navigationThemes, themes } from "@/theme/app-theme";
 import { authClient } from "@/lib/auth-client";
+import { AuthProvider } from "@/context/AuthContext";
 import "../global.css";
 
 WebBrowser.maybeCompleteAuthSession();
@@ -48,29 +49,45 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ThemeProvider value={navigationThemes[scheme]}>
-        <View
-          className="flex-1 bg-background"
-          style={[
-            themes[scheme],
-            { flex: 1, backgroundColor: colors[scheme].background },
-          ]}
-        >
-          <StatusBar style={scheme === "dark" ? "light" : "dark"} />
-          <Stack
-            screenOptions={{
-              headerStyle: { backgroundColor: colors[scheme].card },
-              headerTintColor: colors[scheme].foreground,
-              headerShadowVisible: false,
-              contentStyle: { backgroundColor: colors[scheme].background },
-            }}
+      <AuthProvider>
+        <ThemeProvider value={navigationThemes[scheme]}>
+          <View
+            className="flex-1 bg-background"
+            style={[
+              themes[scheme],
+              { flex: 1, backgroundColor: colors[scheme].background },
+            ]}
           >
-            <Stack.Screen name="index" options={{ headerShown: true }} />
-            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          </Stack>
-          <Toaster theme={scheme} />
-        </View>
-      </ThemeProvider>
+            <StatusBar style={scheme === "dark" ? "light" : "dark"} />
+            <Stack
+              screenOptions={{
+                headerStyle: { backgroundColor: colors[scheme].card },
+                headerTintColor: colors[scheme].foreground,
+                headerShadowVisible: false,
+                contentStyle: { backgroundColor: colors[scheme].background },
+              }}
+            >
+              <Stack.Screen name="index" options={{ headerShown: false }} />
+              <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen
+                name="handyman/[id]"
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="booking/[handymanId]"
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="booking/track/[id]"
+                options={{ headerShown: false }}
+              />
+            </Stack>
+            <Toaster theme={scheme} />
+          </View>
+        </ThemeProvider>
+      </AuthProvider>
     </GestureHandlerRootView>
   );
 }

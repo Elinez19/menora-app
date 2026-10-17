@@ -13,8 +13,10 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { toast } from "sonner-native";
 import { authClient } from "@/lib/auth-client";
+import { useAuthUser } from "@/context/AuthContext";
 
 export default function SignInScreen() {
+  const { exitGuestMode } = useAuthUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPending, setIsPending] = useState(false);
@@ -43,8 +45,9 @@ export default function SignInScreen() {
         setErrorMessage(message);
         toast.error(message);
       } else {
+        await exitGuestMode();
         toast.success("Welcome back!");
-        router.replace("/");
+        router.replace("/(tabs)");
       }
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "An unexpected error occurred.";

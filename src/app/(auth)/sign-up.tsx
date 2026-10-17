@@ -13,8 +13,10 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { toast } from "sonner-native";
 import { authClient } from "@/lib/auth-client";
+import { useAuthUser } from "@/context/AuthContext";
 
 export default function SignUpScreen() {
+  const { exitGuestMode } = useAuthUser();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -51,8 +53,9 @@ export default function SignUpScreen() {
         setErrorMessage(message);
         toast.error(message);
       } else {
+        await exitGuestMode();
         toast.success("Account created successfully!");
-        router.replace("/");
+        router.replace("/(tabs)");
       }
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "An unexpected error occurred.";
